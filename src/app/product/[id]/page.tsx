@@ -3,11 +3,32 @@
 import AddToCartButton from "@/components/products/AddToCartButton";
 import {getProducts} from "@/lib/firebase-mock";
 import {Product} from "@/types/product";
+import {Metadata} from "next";
 import Image from "next/image";
 
 interface ProductPageProps {
   // https://stackoverflow.com/a/79113867 Next.js 15 onwards, Params and SearchParams are now Promise.
   params: Promise<{id: string}>;
+}
+
+export async function generateMetadata(
+  props: ProductPageProps
+): Promise<Metadata> {
+  const params = await props.params;
+  const products: Product[] = await getProducts();
+  const product = products.find((p) => p.id === params.id);
+
+  if (!product) {
+    return {
+      title: "Product Not Found",
+      description: "The product you are looking for does not exist.",
+    };
+  }
+
+  return {
+    title: `${product.title} - Next Shop`,
+    description: product.description,
+  };
 }
 
 export default async function ProductPage(props: ProductPageProps) {
