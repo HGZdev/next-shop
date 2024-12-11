@@ -1,8 +1,8 @@
 "use client";
 
-import {useSelector, useDispatch} from "react-redux";
-import {RootState} from "@/store/store";
-import {removeFromCart, updateQuantity} from "@/store/cartSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/store";
+import { removeFromCart, updateQuantity } from "@/redux/cartSlice";
 import CartItem from "@/app/cart/CartItem";
 
 export default function CartClient() {
@@ -15,7 +15,7 @@ export default function CartClient() {
 
   const handleUpdateQuantity = (id: string, quantity: number) => {
     if (quantity > 0) {
-      dispatch(updateQuantity({id, quantity}));
+      dispatch(updateQuantity({ id, quantity }));
     } else {
       handleRemove(id); // Remove item if quantity is zero
     }
@@ -23,7 +23,7 @@ export default function CartClient() {
 
   const subtotal = items.reduce(
     (total, item) => total + item.price * item.quantity,
-    0
+    0,
   );
 
   return (
@@ -45,12 +45,12 @@ export default function CartClient() {
             ))}
           </ul>
           <div className="mt-6 border-t pt-4">
-            <div className="flex justify-between items-center">
-              <span className="font-bold text-lg">Subtotal</span>
-              <span className="font-bold text-lg">${subtotal.toFixed(2)}</span>
+            <div className="flex items-center justify-between">
+              <span className="text-lg font-bold">Subtotal</span>
+              <span className="text-lg font-bold">${subtotal.toFixed(2)}</span>
             </div>
             <button
-              className="w-full mt-4 bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+              className="mt-4 w-full rounded bg-blue-500 py-2 text-white hover:bg-blue-600"
               onClick={() => alert("Proceed to checkout")}
             >
               Proceed to Checkout

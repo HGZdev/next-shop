@@ -1,7 +1,7 @@
-// app/Footer.tsx
+// app/components/Footer.tsx
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-800 text-white p-4 text-center">
+    <footer className="bg-gray-800 p-4 text-center text-white">
       <p>© {new Date().getFullYear()} Next Shop. All rights reserved.</p>
     </footer>
   );
