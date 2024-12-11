@@ -1,5 +1,5 @@
 // lib/firebase-mock.ts
-import {Product} from "@/types/product";
+import { Product } from "@/types/product";
 
 export async function getProducts(): Promise<Product[]> {
   try {
