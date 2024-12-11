@@ -6,7 +6,7 @@ import {
   getDocs,
   FirestoreError,
 } from "firebase/firestore";
-import { Product } from "@/types/product";
+import { Product, ProductInput } from "@/types/product";
 import db from "./db";
 
 // Custom error for uninitialized Firestore
@@ -68,13 +68,7 @@ export async function getProduct(id: string): Promise<Product | null> {
 }
 
 // Add a new product
-export async function addProduct(product: {
-  name: string;
-  price: number;
-  description: string;
-  image?: string;
-  category?: string;
-}): Promise<string> {
+export async function addProduct(product: ProductInput): Promise<string> {
   if (!db) {
     throw new FirestoreNotInitializedError(
       "Firestore is not initialized. Check your Firebase configuration.",

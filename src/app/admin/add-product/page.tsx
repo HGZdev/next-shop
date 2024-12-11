@@ -3,12 +3,12 @@
 import { z } from "zod";
 import { useState } from "react";
 import { addProduct } from "@/_server/queries";
-import { Product } from "@/types/product";
+import { ProductInput } from "@/types/product";
 import generateFakeProduct from "@/components/generateFakeProduct";
 
 // Validation schema using zod
 const productSchema = z.object({
-  title: z.string().min(1, "Name is required"),
+  title: z.string().min(1, "Title is required"),
   price: z.number().positive("Price must be greater than 0"),
   description: z.string().min(1, "Description is required"),
   image: z.string().url("Image must be a valid URL"),
@@ -29,9 +29,9 @@ const InputField = ({
   label: string;
   type?: string;
   name: string;
-  value: string | number;
+  value: string | number | undefined;
   onChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   required?: boolean;
 }) => {
@@ -41,7 +41,7 @@ const InputField = ({
       {type === "textarea" ? (
         <textarea
           name={name}
-          value={value}
+          value={value || ""}
           onChange={onChange}
           required={required}
           className="w-full rounded border p-2"
@@ -50,7 +50,7 @@ const InputField = ({
         <input
           type={type}
           name={name}
-          value={value}
+          value={value || ""}
           onChange={onChange}
           required={required}
           className="w-full rounded border p-2"
@@ -60,8 +60,9 @@ const InputField = ({
   );
 };
 
+
 export default function AdminPage() {
-  const [form, setForm] = useState<Partial<Product>>(initVal);
+  const [form, setForm] = useState<ProductInput>(initVal);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -79,11 +80,10 @@ export default function AdminPage() {
     e.preventDefault();
     setLoading(true);
     setMessage("");
-
+  
     try {
-      // Validate form data
       const validatedData = productSchema.parse(form);
-
+  
       const productId = await addProduct(validatedData);
       if (productId) {
         setMessage("Product added successfully!");
@@ -108,6 +108,7 @@ export default function AdminPage() {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="mx-auto max-w-2xl p-6">

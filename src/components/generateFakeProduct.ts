@@ -1,16 +1,14 @@
 import { faker } from "@faker-js/faker";
-import { Product } from "@/types/product";
+import {  ProductInput } from "@/types/product";
 
-const generateFakeProduct = (): Product => {
-  const product = {
+function generateFakeProduct(): ProductInput {
+  return {
     title: faker.commerce.productName(),
-    price: (faker.commerce.price({ min: 10, max: 100, dec: 2 }), 10),
+    price: parseFloat(faker.commerce.price()),
     description: faker.commerce.productDescription(),
-    category: faker.commerce.department(),
     image: faker.image.url(),
+    category: faker.commerce.department(),
   };
-  console.log("product:", product);
-  return product;
-};
+}
 
 export default generateFakeProduct;
