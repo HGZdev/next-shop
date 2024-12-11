@@ -1,9 +1,9 @@
-import CartClient from "../../components/cart/CartClient";
+import CartClient from "./CartClient";
 
 export default function CartPage() {
   return (
-    <div className="p-6 border rounded-lg shadow-md max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
+    <div className="mx-auto max-w-3xl rounded-lg border p-6 shadow-md">
+      <h2 className="mb-4 text-2xl font-bold">Your Cart</h2>
       <CartClient />
     </div>
   );

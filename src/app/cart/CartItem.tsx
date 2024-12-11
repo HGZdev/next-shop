@@ -1,23 +1,23 @@
 // app/cart/CartItem.tsx
-import {Product} from "@/types/product";
+import { Product } from "@/types/product";
 import Image from "next/image";
 
 interface CartItemProps {
-  item: Product & {quantity: number};
+  item: Product & { quantity: number };
   onRemove: (id: string) => void;
   onUpdateQuantity: (id: string, quantity: number) => void;
 }
 
-const CartItem = ({item, onRemove, onUpdateQuantity}: CartItemProps) => {
+const CartItem = ({ item, onRemove, onUpdateQuantity }: CartItemProps) => {
   return (
-    <li className="flex justify-between items-center border-b pb-4">
+    <li className="flex items-center justify-between border-b pb-4">
       <div className="flex items-center">
         <Image
           width={100}
           height={100}
           src={item.image}
           alt={item.title}
-          className="w-16 h-16 object-cover rounded mr-4"
+          className="mr-4 h-16 w-16 rounded object-cover"
         />
         <div>
           <h3 className="font-medium">{item.title}</h3>
@@ -28,14 +28,14 @@ const CartItem = ({item, onRemove, onUpdateQuantity}: CartItemProps) => {
         <div className="flex items-center">
           <button
             onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
-            className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+            className="rounded bg-gray-200 px-2 py-1 hover:bg-gray-300"
           >
             -
           </button>
           <span className="mx-2">{item.quantity}</span>
           <button
             onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-            className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+            className="rounded bg-gray-200 px-2 py-1 hover:bg-gray-300"
           >
             +
           </button>

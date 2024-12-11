@@ -1,25 +1,25 @@
-// components/ProductCard.tsx
+// app/products/ProductCard.tsx
 
-import {Product} from "@/types/product";
+import { Product } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
-import AddToCartButton from "../../components/products/AddToCartButton";
+import ClientProductControls from "./ClientProductControls";
 
-export default function ProductCard({product}: {product: Product}) {
+export default function ProductCard({ product }: { product: Product }) {
   return (
-    <div className="border p-4 rounded">
-      <Link href={`/product/${product.id}`}>
+    <div className="rounded border p-4">
+      <Link href={`/products/${product.id}`}>
         <Image
           width={100}
           height={100}
           src={product.image}
           alt={product.title}
-          className="w-full h-32 object-cover mb-2"
+          className="mb-2 h-32 w-full object-cover"
         />
-        <h2 className="font-bold text-lg hover:underline">{product.title}</h2>
+        <h2 className="text-lg font-bold hover:underline">{product.title}</h2>
       </Link>
-      <p>${product.price.toFixed(2)}</p>
-      <AddToCartButton product={product} />
+      <p>{product.price.toFixed(2)} €</p>
+      <ClientProductControls product={product} />
     </div>
   );
 }
